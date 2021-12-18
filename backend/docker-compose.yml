@@ -3,10 +3,9 @@ services:
   db: 
     image: postgres:14.1
     environment:
-      PGPASSWORD: secretpassword
-      PGUSER: dbuser
-      PGDATABASE: fullstack-db
-      PGPORT: 5432
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: fullstack-db
     volumes:
       - ./pgdata:/var/lib/postgresql/data
     ports:
@@ -15,6 +14,8 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
+    links: 
+      - db
     depends_on:
       - db
     ports: 
