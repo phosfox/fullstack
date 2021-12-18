@@ -1,0 +1,21 @@
+version: '3.9'
+services: 
+  db: 
+    image: postgres:14.1
+    environment:
+      PGPASSWORD: secretpassword
+      PGUSER: dbuser
+      PGDATABASE: fullstack-db
+      PGPORT: 5432
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  web:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    ports: 
+      - "4000:4000"
