@@ -11,5 +11,5 @@
     "rootDir": "."
   },
   "exclude": ["node_modules"],
-  "include": ["./src/**/*.tsx", "./src/**/*.ts", "./migrations/**/*.ts"]
+  "include": ["./src/**/*.tsx", "./src/**/*.ts"]
 }

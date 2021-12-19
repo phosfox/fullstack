@@ -12,6 +12,7 @@ services:
     ports:
       - "5432:5432"
   web:
+   # command: sleep 5; npm run migrations-and-start
     build: 
       context: .
       dockerfile: Dockerfile

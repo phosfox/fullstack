@@ -4,10 +4,12 @@
   "description": "just a node-server",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec ts-node src/index.ts",
+    "start": "node ./dist/src/index.js",
+    "dev": "nodemon --exec ts-node src/index.ts",
     "build": "tsc -b",
     "migrate": "node-pg-migrate",
-    "migrations": "node-pg-migrate up -m ./dist/migrations"
+    "migrations": "node-pg-migrate up -m ./dist/src/start/db/migrations",
+    "migrations-and-start": "npm run migrations && npm run start"
   },
   "author": "",
   "license": "ISC",
