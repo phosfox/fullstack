@@ -1,0 +1,9 @@
+CREATE TABLE counts (
+  id BIGSERIAL PRIMARY KEY,
+  count BIGINT DEFAULT 0,
+  slug TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  created_at TIMESTAMP NOT NULL,
+  updated_at TIMESTAMP NOT NULL
+);
+
+CREATE INDEX ON counts (slug);

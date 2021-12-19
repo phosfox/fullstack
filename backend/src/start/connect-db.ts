@@ -4,9 +4,9 @@ export async function connectDB(retries = 5) {
     try {
       const client = new Client({
         host: "db",
-        user: "postgres",
-        password: "postgres",
-        database: "fullstack-db",
+        user: "fullstack",
+        password: "fullstack",
+        database: "fullstack_dev",
         port: 5432,
       })
       console.log("connecting to DB...")
