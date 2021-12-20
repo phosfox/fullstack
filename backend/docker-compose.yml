@@ -12,10 +12,12 @@ services:
     ports:
       - "5432:5432"
   web:
-   # command: sleep 5; npm run migrations-and-start
+    command: npm run dev
     build: 
       context: .
       dockerfile: Dockerfile
+    volumes:
+      - .:/usr/app
     depends_on:
       - db
     ports: 
