@@ -1,6 +1,6 @@
-version: '3.9'
-services: 
-  db: 
+version: "3.9"
+services:
+  db:
     image: postgres:14.1
     environment:
       POSTGRES_USER: fullstack
@@ -12,13 +12,13 @@ services:
     ports:
       - "5432:5432"
   web:
-    command: npm run dev
-    build: 
+    command: ["./wait-for-it.sh", "db:5432", "--", "npm", "run", "dev"]
+    build:
       context: .
       dockerfile: Dockerfile
     volumes:
       - .:/usr/app
     depends_on:
       - db
-    ports: 
+    ports:
       - "4000:4000"

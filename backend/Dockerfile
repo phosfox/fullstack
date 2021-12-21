@@ -11,6 +11,7 @@ FROM node
 WORKDIR /usr/app
 ENV DATABASE_URL=postgres://fullstack:fullstack@db:5432/fullstack_dev
 COPY package*.json ./
+COPY wait-for-it.sh .
 RUN npm install --production
 
 COPY --from=builder /usr/app/dist ./dist
