@@ -1,30 +1,39 @@
-import type { Component } from "solid-js";
+import { Component, createSignal, onMount , Show} from "solid-js"
+import { createCounter, getCounter } from "./api/index.js"
 
-import logo from "./logo.svg";
-import styles from "./App.module.css";
+import styles from "./App.module.css"
 
-import { Counter } from "./components/Counter.jsx";
+import { Counter as ICounter } from "./types/index.js"
+
+import { Counter } from "./components/Counter.jsx"
+import { Share } from "./components/Share.jsx"
+
+const notOnRoot = () => {
+  return location.pathname !== "/"
+}
 
 const App: Component = () => {
+  const [counter, setCounter] = createSignal<ICounter>()
+  onMount(async () => {
+    if (notOnRoot()) {
+      const res = await getCounter(location.pathname.substring(1))
+      setCounter(res)
+    } else {
+      const res = await createCounter()
+      setCounter(res)
+    }
+  })
+
   return (
     <div class={styles.App}>
-      <header class={styles.header}>
-        <img src={logo} class={styles.logo} alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <Counter/>
-        <a
-          class={styles.link}
-          href="https://github.com/solidjs/solid"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn Solid
-        </a>
-      </header>
+      <main class={styles.main}>
+        <Show when={counter()}>
+        <Counter counter={counter()!!}/>
+        <Share url={location.origin + "/" + counter()?.slug} />
+        </Show>
+      </main>
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App

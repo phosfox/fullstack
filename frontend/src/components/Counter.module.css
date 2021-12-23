@@ -1,0 +1,15 @@
+.count {
+    color: black;
+    margin: 10px
+}
+
+.button {
+    border: none;
+    border-radius: 5px;
+    background: rgb(44, 44, 44);
+    font-size: 1rem;
+    color: rgb(255, 255, 255);
+    padding: .7rem .9rem;
+    margin: .5rem 0;
+    transition: .4s;
+}

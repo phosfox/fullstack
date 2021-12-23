@@ -31,6 +31,21 @@ async function create(slug: string): Promise<any> {
   }
 }
 
+async function update(slug: string, count: number): Promise<any> {
+  try {
+    const res = await db.query(
+      `UPDATE counts
+       SET count = $1, updated_at = NOW() 
+       WHERE counts.slug = $2 
+       RETURNING *`,
+      [count, slug]
+    )
+    return res.rows[0]
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 async function incrementBy(slug: string, amount: number): Promise<any> {
   try {
     const res = await db.query(
@@ -46,5 +61,5 @@ async function incrementBy(slug: string, amount: number): Promise<any> {
   }
 }
 
-const Count = { create, incrementBy, findOne }
+const Count = { create, incrementBy, findOne, update }
 export default Count

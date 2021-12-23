@@ -1,13 +1,17 @@
 import express from "express"
+import cors from "cors"
 import Count, { NotFound } from "../db/count";
 import {generateSlug} from "random-word-slugs"
 
 export function createApp() {
     const app = express()
+    app.use(cors())
     const config= {host: "0.0.0.0", port: "4000", log: console.log};
-    app.put("/counter/:slug", async ({params: {slug}}, res) => {
+    app.put("/counter/:slug", async ({params: {slug}, body}, res) => {
         try {
-            const result = await Count.incrementBy(slug, 1)
+            const result = await Count.update(slug, 1)
+            console.log({result}, {body});
+            
             res.json({...result})
         } catch (error) {
             
