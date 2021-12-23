@@ -5,16 +5,16 @@ import {generateSlug} from "random-word-slugs"
 
 export function createApp() {
     const app = express()
-    app.use(cors())
+    app.use(cors()).use(express.json())
     const config= {host: "0.0.0.0", port: "4000", log: console.log};
-    app.put("/counter/:slug", async ({params: {slug}, body}, res) => {
+    app.put("/counter/:slug", async (req, res) => {
         try {
-            const result = await Count.update(slug, 1)
-            console.log({result}, {body});
+            const {params: {slug}, body: {count}} = req
+            const result = await Count.update(slug, count)
             
             res.json({...result})
         } catch (error) {
-            
+            return res.status(500).send(error)
         }
     })
     app.post("/counter", async (_, res) => {

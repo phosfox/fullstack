@@ -17,7 +17,7 @@ export async function getCounter(slug: string): Promise<Counter> {
 export async function putCounter(counter: Counter): Promise<Counter> {
   const resp = await fetch(base + "/" + counter.slug, {
     method: "PUT",
-    body: JSON.stringify({...counter, count: counter.count.toString()}),
+    body: JSON.stringify({ ...counter, count: counter.count.toString() }),
     headers: { "Content-Type": "application/json" },
   })
   const json = await resp.json()
